@@ -42,12 +42,6 @@ public class Test extends JFrame {
 		List<Double> params;
 		LineParamEstimator lpe = new LineParamEstimator(0.5);
 
-//		System.out.println("params:[n_x,n_y,a_x,a_y]");
-//		for (int i = 0; i < 4; i++) {
-//			System.out.print("\t" + params.get(i));
-//		}
-//		System.out.println();
-
 		data.add(new Point2D(-8, 7));
 		data.add(new Point2D(10, -1));
 		data.add(new Point2D(-8.01, 7.96));
@@ -69,40 +63,24 @@ public class Test extends JFrame {
 		data.add(new Point2D(7.31, 4.96));
 		data.add(new Point2D(-8.33, -3.44));
 		params = lpe.leastSquaresEstimate(data);
-//		System.out.println("params:[n_x,n_y,a_x,a_y]");
-//		for (int i = 0; i < 4; i++) {
-//			System.out.print("\t" + params.get(i));
-//		}
-//		System.out.println();
 		Point2D p = new Point2D(2.02, 0.69);
-//		System.out.println("Is point " + p + " near line?");
 		if (lpe.agree(params, p)) {
-//			System.out.println("Yes");
 			drawPlot(g2, p.getX(), p.getY(), 4, 0x66aa66, true);
 		} else {
-//			System.out.println("No");
 			drawPlot(g2, p.getX(), p.getY(), 4, 0xaa3333, true);
 		}
 		for (int i = 0; i < data.size(); i++) {
-//			int x = (int) Math.round(data.get(i).getX() * 30.0);
-//			int y = (int) Math.round(data.get(i).getX() * 30.0);
-			drawPlot(g2, data.get(i).getX(), data.get(i).getY(), 4, 0xaaff00, true);
+			drawPlot(g2, data.get(i).getX(), data.get(i).getY(), 4, 0xaaff00,
+					true);
 		}
 		drawLine(g2, params.get(0), params.get(1), params.get(2),
 				params.get(3), 1, 0x3366aa);
-		drawLine(g2, params.get(0), params.get(1), params.get(2)-params.get(0)*0.5,
-				params.get(3)-params.get(1)*0.5, 1, 0x3366aa);
-		drawLine(g2, params.get(0), params.get(1), params.get(2)+params.get(0)*0.5,
-				params.get(3)+params.get(1)*0.5, 1, 0x3366aa);
-		// g2.fillRect(0, 0, 600, 600);
-		// g2.translate(300, 300);
-		// g2.setColor(new Color(0x000000));
-		// g2.drawLine(100, 40, -80, 300);
-		// g2.setColor(new Color(0xff6600));
-		// g2.drawRect(10, 50, 100, 100);
-		// drawPlot(g2,10,204,5,0x557700,false);
-		// drawPlot(g2,30,204,5,0x3366aa,true);
-		// drawPlot(g2,150,-204,2,0x3366aa,true);
+		drawLine(g2, params.get(0), params.get(1), params.get(2)
+				- params.get(0) * 0.5, params.get(3) - params.get(1) * 0.5, 1,
+				0x3366aa);
+		drawLine(g2, params.get(0), params.get(1), params.get(2)
+				+ params.get(0) * 0.5, params.get(3) + params.get(1) * 0.5, 1,
+				0x3366aa);
 	}
 
 	private void drawPlot(Graphics2D g, double x, double y, int size, int rgb,
@@ -129,7 +107,6 @@ public class Test extends JFrame {
 		g.setColor(new Color(rgb));
 		g.setStroke(new BasicStroke(size));
 		g.drawLine(-300, y1, 300, y2);
-//		g.drawString("-300, "+y1+", 300, "+y2, -280, -250);
 		g.setColor(color);
 		g.setStroke(stroke);
 	}
@@ -139,6 +116,5 @@ public class Test extends JFrame {
 	 */
 	public static void main(String[] args) {
 		new Test();
-		// g.finalize();
 	}
 }

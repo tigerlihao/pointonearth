@@ -16,7 +16,6 @@ import javax.swing.WindowConstants;
 
 import tigerlihao.cv.ransac.Ransac;
 
-
 public class App extends JFrame {
 	/**
 	 * 
@@ -29,8 +28,6 @@ public class App extends JFrame {
 	int numSamples = 200;
 	int numOutliers = 1800;
 	double desiredProbabilityForNoOutliers = 0.999;
-	// double maximalOutlierPercentage = 0.1 + (double) numOutliers
-	// / (double) (numSamples + numOutliers);
 	double maximalOutlierPercentage = 1.0 - (double) numSamples * 0.9
 			/ (double) (numSamples + numOutliers);
 	double noiseSpreadRadius = 0.02;
@@ -63,11 +60,13 @@ public class App extends JFrame {
 					0x336699, best[i]);
 		}
 		// System.out.println(p);
-//		g2.drawString("" + p, 20, 550);
+		// g2.drawString("" + p, 20, 550);
 		drawLine(g2, lineParameters.get(0), lineParameters.get(1),
 				lineParameters.get(2), lineParameters.get(3), 3, 0xff0000);
 		g2.setColor(new Color(0x000000));
-		g2.drawString("line params: " + lineParameters.get(0)+", " + lineParameters.get(1)+", " + lineParameters.get(2)+", " + lineParameters.get(3), 0, 600);
+		g2.drawString("line params: " + lineParameters.get(0) + ", "
+				+ lineParameters.get(1) + ", " + lineParameters.get(2) + ", "
+				+ lineParameters.get(3), 0, 600);
 	}
 
 	private void drawPlot(Graphics2D g, double x, double y, int size, int rgb,
@@ -92,7 +91,7 @@ public class App extends JFrame {
 		Stroke stroke = g.getStroke();
 		g.setColor(new Color(rgb));
 		g.setStroke(new BasicStroke(size));
-		g.drawLine(-winSize-20, y1, winSize+20, y2);
+		g.drawLine(-winSize - 20, y1, winSize + 20, y2);
 		g.setColor(color);
 		g.setStroke(stroke);
 	}
@@ -102,7 +101,7 @@ public class App extends JFrame {
 	 */
 	public static void main(String[] args) {
 		// get random direction
-		App a=new App();
+		App a = new App();
 		// add 'numSamples' points
 		a.pointData.clear();
 		Random rand = new Random(new Date().getTime());
@@ -110,10 +109,10 @@ public class App extends JFrame {
 		a.dx = Math.cos(angle);
 		a.dy = Math.sin(angle);
 		for (int i = 0; i < a.numSamples; i++) {
-			a.newX = i * a.dx / a.numSamples + a.noiseSpreadRadius * rand.nextDouble()
-					* (rand.nextBoolean() ? 1 : -1);
-			a.newY = i * a.dy / a.numSamples + a.noiseSpreadRadius * rand.nextDouble()
-					* (rand.nextBoolean() ? 1 : -1);
+			a.newX = i * a.dx / a.numSamples + a.noiseSpreadRadius
+					* rand.nextDouble() * (rand.nextBoolean() ? 1 : -1);
+			a.newY = i * a.dy / a.numSamples + a.noiseSpreadRadius
+					* rand.nextDouble() * (rand.nextBoolean() ? 1 : -1);
 			a.pointData.add(new Point2D(a.newX, a.newY));
 			// drawPlot(g2,newX,newY,4,0x336699,true);
 		}
@@ -128,12 +127,7 @@ public class App extends JFrame {
 					* Math.cos(2.0 * an * Math.PI);
 			a.newY = centerY + a.outlierSpreadRadius * r
 					* Math.sin(2.0 * an * Math.PI);
-			// newX = centerX + outlierSpreadRadius * rand.nextDouble()
-			// * (rand.nextBoolean() ? 1 : -1);
-			// newY = centerY + outlierSpreadRadius * rand.nextDouble()
-			// * (rand.nextBoolean() ? 1 : -1);
 			a.pointData.add(new Point2D(a.newX, a.newY));
-			// drawPlot(g2,newX,newY,4,0x336699,true);
 		}
 		Ransac<Point2D, Double> ransac = new Ransac<Point2D, Double>(
 				a.lpEstimator, a.numForEstimate, a.maximalOutlierPercentage);
