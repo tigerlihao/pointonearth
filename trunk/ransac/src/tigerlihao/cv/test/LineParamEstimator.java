@@ -3,7 +3,7 @@ package tigerlihao.cv.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import tigerlihao.cv.ransac.ParameterEsitmator;
+import tigerlihao.cv.ransac.ParameterEstimator;
 
 
 /**
@@ -19,7 +19,7 @@ import tigerlihao.cv.ransac.ParameterEsitmator;
  * 
  * @author tiger
  */
-public class LineParamEstimator implements ParameterEsitmator<Point2D, Double> {
+public class LineParamEstimator implements ParameterEstimator<Point2D, Double> {
 	private double deltaSquared;
 
 	public LineParamEstimator(double delta) {

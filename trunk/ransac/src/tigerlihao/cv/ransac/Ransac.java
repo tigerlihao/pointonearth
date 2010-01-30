@@ -7,40 +7,62 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ * @author tigerlihao
+ * 
+ * @param <T>
+ *            Class of the data
+ * @param <S>
+ *            Class of the parameter
+ */
 public class Ransac<T, S> {
 	private List<S> parameters = null;
-	private ParameterEsitmator<T, S> paramEstimator;
-	boolean[] bestVotes;
+	private ParameterEstimator<T, S> paramEstimator;
+	private boolean[] bestVotes;
+	private int numForEstimate;
+	private double maximalOutlierPercentage;
+
+	/**
+	 * @return The best inlier set.
+	 */
 	public boolean[] getBestVotes() {
 		return bestVotes;
 	}
 
-	public void setBestVotes(boolean[] bestVotes) {
-		this.bestVotes = bestVotes;
-	}
-
+	/**
+	 * @return The best model parameters.
+	 */
 	public List<S> getParameters() {
 		return parameters;
 	}
 
-	public void setParameters(List<S> parameters) {
-		this.parameters = parameters;
-	}
-
-	private int numForEstimate;
-	private double maximalOutlierPercentage;
-
-	// public Ransac(ParameterEsitmator<T, S> paramEstimator) {
-	// this.paramEstimator = paramEstimator;
-	// }
-
-	public Ransac(ParameterEsitmator<T, S> paramEstimator, int numForEstimate,
+	/**
+	 * This is the constructor of the new ransac object.
+	 * 
+	 * @param paramEstimator
+	 *            The parameter estimator to be use.
+	 * @param numForEstimate
+	 *            The minimal data record number needed to estimate model
+	 *            parameters.
+	 * @param maximalOutlierPercentage
+	 *            The maximal outlier percentage.
+	 */
+	public Ransac(ParameterEstimator<T, S> paramEstimator, int numForEstimate,
 			double maximalOutlierPercentage) {
 		this.paramEstimator = paramEstimator;
 		this.numForEstimate = numForEstimate;
 		this.maximalOutlierPercentage = maximalOutlierPercentage;
 	}
 
+	/**
+	 * This method is used to run the RANSAC process.
+	 * 
+	 * @param data
+	 *            The data sample.
+	 * @param desiredProbabilityForNoOutliers
+	 *            The probability needed in the estimation.
+	 * @return The percentage of data used to estimate the best result.
+	 */
 	public double compute(List<T> data, double desiredProbabilityForNoOutliers) {
 		int dataSize = data.size();
 		if (dataSize < numForEstimate || maximalOutlierPercentage >= 1.0) {
@@ -93,11 +115,11 @@ public class Ransac<T, S> {
 					k++;
 				}
 			}
+			// If the subset is not selected, test it.
 			if (chosenSubSets.add(curSubSetIndexes)) {
 				exactedParams = paramEstimator.estimate(exactedData);
 				// see how many agree on this estimate
 				curSize = 0;
-				// memset(curVotes,'\0',numDataObjects*sizeof(byte));
 				for (int j = 0; j < notChosen.length; j++) {
 					curVotes[j] = false;
 				}
@@ -126,7 +148,7 @@ public class Ransac<T, S> {
 		}
 		chosenSubSets.clear();
 
-		// compute the least squares estimate using the largest sub set
+		// compute the least squares estimate using the best subset
 		leastSqData = new ArrayList<T>();
 		for (int i = 0; i < dataSize; i++) {
 			if (bestVotes[i]) {

@@ -3,14 +3,16 @@ package tigerlihao.cv.ransac;
 import java.util.List;
 
 /**
- * @author tiger
+ * This a parameter estimator interface.
+ * 
+ * @author tigerlihao
  * 
  * @param <T>
  *            Class of the data
  * @param <S>
  *            Class of the parameter
  */
-public interface ParameterEsitmator<T, S> {
+public interface ParameterEstimator<T, S> {
 	/**
 	 * Exact estimation of parameters.
 	 * 
