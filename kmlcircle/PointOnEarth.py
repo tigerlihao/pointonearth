@@ -38,9 +38,10 @@ class PointOnEarth:
             p.lat=-90.0+r
         elif direct<self.tolerance or direct > (360.0-self.tolerance):#direction is north
             p.lat=self.lat+r
-            p.lon=self.lon
+            p.lon=self.lon#TODO
         elif direct>(180.0-self.tolerance) and direct < (180.0+self.tolerance):#direction is south
-            
+            p.lat=self.lat-r
+            p.lon=self.lon#TODO
         else:
 	        direct=math.radians(direct)
 	        r=math.radians(r)
