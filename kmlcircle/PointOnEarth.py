@@ -27,15 +27,20 @@ class PointOnEarth:
             )
         )
     def getPointBydirection(self,direct,r):
-        direct=direct % 360.0
-        r=math.fabs((r+180.0)%360.0-180.0)
-        p= PointOnEarth()
+        direct=direct % 360.0#direction is in [0.0,360.0)
+        r=math.fabs((r+180.0)%360.0-180.0)#radium is in [0.0,180.0]
+        p=PointOnEarth()#target point
         if 90.0-self.lat<self.tolerance:#Center Point is North Polar
-            p.lon=self.lon+180.0-direct;
+            p.lon=self.lon+180.0-direct
             p.lat=90.0-r
         elif self.lat+90.0<self.tolerance:#Center Point is South Polar
-            p.lon=90.0+180.0-direct;
+            p.lon=self.lon+direct
+            p.lat=-90.0+r
+        elif direct<self.tolerance or direct > (360.0-self.tolerance):#direction is north
             p.lat=self.lat+r
+            p.lon=self.lon
+        elif direct>(180.0-self.tolerance) and direct < (180.0+self.tolerance):#direction is south
+            
         else:
 	        direct=math.radians(direct)
 	        r=math.radians(r)
@@ -54,22 +59,22 @@ class PointOnEarth:
 	        else:
 	            p.lat=math.asin(sinLatX)
 	            if (math.cos(lat)*math.cos(lat)<self.tolerance*self.tolerance):#Point p is polar.
-	                lonDiff=math.pi-direct;
+	                lonDiff=math.pi-direct
 	            else:# Point p is not polar.
-	                cosLonDiff1=(math.cos(r)-sinLatX*math.sin(lat))/(math.cos(p.lat)*math.cos(lat));
-	                cosLonDiff=-(s * math.sin(lat) - math.cos(r) * math.sin(lat + r))/ (math.sin(r)*math.cos(p.lat));
+	                cosLonDiff1=(math.cos(r)-sinLatX*math.sin(lat))/(math.cos(p.lat)*math.cos(lat))
+	                cosLonDiff=-(s * math.sin(lat) - math.cos(r) * math.sin(lat + r))/ (math.sin(r)*math.cos(p.lat))
 	                print "%.18f,%.18f,%.18f,%.18f" % (cosLonDiff1,cosLonDiff,(-cosLonDiff*cosLonDiff+1.0),(self.tolerance*self.tolerance))
 	                if -cosLonDiff*cosLonDiff+1.0<self.tolerance*self.tolerance:#northward or southward
 	                    if cosLonDiff>0.0:
-	                        lonDiff = 0.0;
+	                        lonDiff = 0.0
 	                    else:
-	                        lonDiff=math.pi;
+	                        lonDiff=math.pi
 	                else:
 	                    lonDiff=math.acos(cosLonDiff)
 	                    if direct>math.pi:
 	                        lonDiff = -lonDiff
 	        print "%.12f" % lonDiff
-	        p.lon=lon+lonDiff;
+	        p.lon=lon+lonDiff
 	        p.lon=(math.degrees(p.lon)+180.0) % 360.0 -180.0
 	        p.lat=math.degrees(p.lat)
         return p
