@@ -9,12 +9,12 @@
 	<link rel="icon" href="/favicon.png"/>
 	<style type="text/css" media="screen">
 		div#head {height:70px;width:400px;margin:20px auto;}
-		div#forms {clear:both;width:400px;margin:20px auto;text-align: center;}
+		div#forms {clear:both;width:400px;margin:20px auto;}
+		div#forms p {text-align: center;font-size: 14px;line-height:30px;}
 		label{width:150px;display:block;float:left;text-align: right;}
 		div#head img {display: block;float:left;}
 		div#title {font-family: Arial, sans-serif;font-size: 32px;line-height:40px;height:40px;}
 		div#author {font-size: 16px;line-height:20px;height:20px;text-align: right;font-style: italic;}
-		div#froms fieldset{padding:10px;}
 	</style>
 </head>
 
@@ -28,21 +28,21 @@
 <form action="/circle" method="post">
 	<fieldset>
     	<legend>Get Circle</legend>
-		<label for="lon">longitude:</label><input type="text" name="lon" id="lon"/>&deg;<br/>
+		<p><label for="lon">longitude:</label><input type="text" name="lon" id="lon"/>&deg;<br/>
 		<label for="lat">latitude:</label><input type="text" name="lat"  id="lat"/>&deg;<br/>
 		<label for="r">radius:</label><input type="text" name="r"  id="r"/>&deg;<br/>
-		<input type="submit" value="Get KML"/>
+		<input type="submit" value="Get KML"/></p>
 	</fieldset>
 </form>
 <form action="/arc" method="post">
 	<fieldset>
 	    <legend>Get Arc</legend>
-		<label for="arc_lon">longitude:</label><input type="text" name="lon" id="arc_lon"/>&deg;<br/>
+		<p><label for="arc_lon">longitude:</label><input type="text" name="lon" id="arc_lon"/>&deg;<br/>
 		<label for="arc_lat">latitude:</label><input type="text" name="lat"  id="arc_lat"/>&deg;<br/>
 		<label for="arc_r">radius:</label><input type="text" name="r"  id="arc_r"/>&deg;<br/>
 		<label for="start">start direction:</label><input type="text" name="start"  id="start"/>&deg;<br/>
 		<label for="end">end direction:</label><input type="text" name="end"  id="end"/>&deg;<br/>
-		<input type="submit" value="Get Arc"/>
+		<input type="submit" value="Get Arc"/></p>
 	</fieldset>
 </form>
 </div>
