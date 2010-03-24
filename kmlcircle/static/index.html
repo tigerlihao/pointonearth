@@ -3,20 +3,33 @@
 <html>
 <head>
 	<title>KML Circle Generator by tigerllihao</title>
+	<style type="text/css" media="screen">
+		label{width:150px;display:block;float:left;}
+	</style>
 </head>
 
 <body>
 <h1>KML Circle Generator</h1>
-<h2>by tigerllihao</h2>
+<h2>by <a href="http://blog.tigerlihao.cn" target="_blank">tigerllihao</a></h2>
 <form action="/circle" method="post">
-<div>
-<ul>
-<li><label for="lon">longitude:</label><input type="text" name="lon" id="lon"/>&deg;</li>
-<li><label for="lat">latitude:</label><input type="text" name="lat"  id="lat"/>&deg;</li>
-<li><label for="r">radius:</label><input type="text" name="r"  id="r"/>&deg;</li>
-</ul>
-<input type="submit" value="Get KML">
-</div>
+	<fieldset>
+    	<legend>Get Circle</legend>
+		<label for="lon">longitude:</label><input type="text" name="lon" id="lon"/>&deg;<br/>
+		<label for="lat">latitude:</label><input type="text" name="lat"  id="lat"/>&deg;<br/>
+		<label for="r">radius:</label><input type="text" name="r"  id="r"/>&deg;<br/>
+		<input type="submit" value="Get KML">
+	</fieldset>
+</form>
+<form action="/arc" method="post">
+	<fieldset>
+	    <legend>Get Arc</legend>
+		<label for="arc_lon">longitude:</label><input type="text" name="lon" id="arc_lon"/>&deg;<br/>
+		<label for="arc_lat">latitude:</label><input type="text" name="lat"  id="arc_lat"/>&deg;<br/>
+		<label for="arc_r">radius:</label><input type="text" name="r"  id="arc_r"/>&deg;<br/>
+		<label for="start">start direction:</label><input type="text" name="start"  id="start"/>&deg;<br/>
+		<label for="end">end direction:</label><input type="text" name="end"  id="end"/>&deg;<br/>
+		<input type="submit" value="Get Arc">
+	</fieldset>
 </form>
 </body>
 </html>
