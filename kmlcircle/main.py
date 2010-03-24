@@ -91,7 +91,7 @@ class GetArcHandler(webapp.RequestHandler):
     <name>Your Arc</name>
     <visibility>1</visibility>
     <Placemark>
-        <name>circle</name>
+        <name>arc</name>
         <visibility>1</visibility>
         <Style>
             <geomColor>ff0000ff</geomColor>
@@ -105,7 +105,7 @@ class GetArcHandler(webapp.RequestHandler):
       n=math.ceil(l/sect)
       sect=l/n
       #self.response.out.write('%.8f,%.8f ' % (p.lon,p.lat))
-      for i in range(n+1):
+      for i in range(int(n)+1):
         p2=p.getPointBydirection((start+sect*i),r)
         self.response.out.write('%.8f,%.8f ' % (p2.lon,p2.lat))
       #self.response.out.write('%.8f,%.8f ' % (p.lon,p.lat))
