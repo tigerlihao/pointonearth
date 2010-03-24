@@ -21,23 +21,44 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from PointOnEarth import PointOnEarth
 
-class MainHandler(webapp.RequestHandler):
-
-  def get(self):
-    self.response.out.write('<Folder><name>KML Circle Generator Output</name><visibility>1</visibility><Placemark><name>circle</name><visibility>1</visibility><Style><geomColor>ff0000ff</geomColor><geomScale>1</geomScale></Style><LineString><coordinates>')
-    p=PointOnEarth(45.0,85.0)
-    #p2=p.getPointBydirection(0,4.0)
-    #p3=p.getPointBydirection(360,0.0)
-    #self.response.out.write('%.12f, %.12f ' % (p2.lon,p2.lat))
-    #self.response.out.write('%.12f, %.12f ' % (p3.lon,p3.lat))
-    for i in range(0,361,3):
-        p2=p.getPointBydirection(i,0.001)
-        self.response.out.write('%.6f,%.6f ' % (p2.lon,p2.lat))
-    self.response.out.write('</coordinates></LineString></Placemark></Folder>')
+class GetCircleHandler(webapp.RequestHandler):
+  def post(self):
+    if self.request.get('lon')=="":
+      lon=0.0
+    else:
+      lon=float(self.request.get('lon'))
+    if self.request.get('lat')=="":
+      lat=0.0
+    else:
+      lat=float(self.request.get('lat'))
+    if self.request.get('r')=="":
+      r=90.0
+    else:
+      r=float(self.request.get('r'))
+    self.response.headers['Content-Type'] = "application/vnd.google-earth.kml+xml"
+    self.response.out.write("""<Folder>
+    <name>KML Circle Generator Output</name>
+    <visibility>1</visibility>
+    <Placemark>
+        <name>circle</name>
+        <visibility>1</visibility>
+        <Style>
+            <geomColor>ff0000ff</geomColor>
+            <geomScale>1</geomScale>
+        </Style>
+        <LineString>
+            <coordinates>""")
+    p=PointOnEarth(lon,lat)
+    for i in range(0,361,5):
+      p2=p.getPointBydirection(i,r)
+      self.response.out.write('%.8f,%.8f ' % (p2.lon,p2.lat))
+    self.response.out.write("""</coordinates>
+        </LineString>
+    </Placemark>
+</Folder>""")
 
 def main():
-  application = webapp.WSGIApplication([('/', MainHandler)],
-                                       debug=True)
+  application = webapp.WSGIApplication([('/circle', GetCircleHandler)],debug=True)
   util.run_wsgi_app(application)
 
 
