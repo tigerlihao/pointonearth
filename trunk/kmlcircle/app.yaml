@@ -11,5 +11,20 @@ handlers:
   static_files: static/index.html
   upload: static/index.html
 
+- url: /favicon\.ico
+  static_files: static/favicon.ico
+  upload: static/favicon.ico
+  mime_type: image/x-icon
+
+- url: /favicon\.png
+  static_files: static/favicon.png
+  upload: static/favicon.png
+  mime_type: image/png
+
+- url: /icon64\.png
+  static_files: static/icon64.png
+  upload: static/icon64.png
+  mime_type: image/png
+
 - url: .*
   script: main.py
