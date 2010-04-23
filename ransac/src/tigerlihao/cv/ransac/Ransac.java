@@ -147,7 +147,6 @@ public class Ransac<T, S> {
 			}
 		}
 		chosenSubSets.clear();
-
 		// compute the least squares estimate using the best subset
 		leastSqData = new ArrayList<T>();
 		for (int i = 0; i < dataSize; i++) {
