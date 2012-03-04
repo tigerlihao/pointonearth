@@ -36,8 +36,8 @@ class GetCircleHandler(webapp.RequestHandler):
         r=90.0
       else:
         r=float(self.request.get('r'))
-      #self.response.headers['Content-Type'] = "application/vnd.google-earth.kml+xml"
-      self.response.headers['Content-Type'] = "text/xml"
+      self.response.headers['Content-Type'] = "application/vnd.google-earth.kml+xml"
+      #self.response.headers['Content-Type'] = "text/xml"
       self.response.out.write("""<Folder>
     <name>Your Circle</name>
     <visibility>1</visibility>
@@ -86,7 +86,7 @@ class GetArcHandler(webapp.RequestHandler):
         end=90.0
       else:
         end=float(self.request.get('end'))
-      self.response.headers['Content-Type'] = "text/xml"
+      self.response.headers['Content-Type'] = "application/vnd.google-earth.kml+xml"
       self.response.out.write("""<Folder>
     <name>Your Arc</name>
     <visibility>1</visibility>

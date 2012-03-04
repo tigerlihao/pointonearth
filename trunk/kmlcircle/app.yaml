@@ -1,5 +1,5 @@
 application: kmlcircle
-version: 1
+version: 2
 runtime: python
 api_version: 1
 
@@ -14,7 +14,7 @@ handlers:
 - url: /favicon\.ico
   static_files: static/favicon.ico
   upload: static/favicon.ico
-  mime_type: image/x-icon
+  mime_type: image/vnd.microsoft.icon
 
 - url: /favicon\.png
   static_files: static/favicon.png
