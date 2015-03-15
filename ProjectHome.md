@@ -1,0 +1,1 @@
+Calclating point on earth.
